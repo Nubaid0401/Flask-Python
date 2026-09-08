@@ -28,3 +28,16 @@ def details():
             return render_template('index1.html', error='Location not found.')
 
         lon, lat = features[0]['geometry']['coordinates']
+
+        data = {
+            "latitude" : str(lat),
+            "longitude" : str(lon),
+        }
+
+        return render_template('index1.html', data=data)
+
+    except Exception:
+        return render_template('index1.html', error='Give the correct location.')
+
+if __name__ == '__main__':
+    app.run(host = '0.0.0.0', port = 8080, debug = True)
