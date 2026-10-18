@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Intake Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='wit_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Water Intake Tracker</h1>
+        <p>Track your daily water intake and stay hydrated!</p>
+
+        <form action="/track" method="post">
+            <label>Your Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label>Daily Goal (glasses):</label>
+            <input type="number" id="goal" name="goal" placeholder="Enter your daily goal" required>
+
+            <label>Glasses drunk:</label>
+            <input type="number" id="glasses" name="glasses" placeholder="Enter number of glasses drunk" required>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if name %}
+        <div class="Result">
+            <h2>Results</h2>
+            <h3>Hello {{ name }}!</h3>
+            <p>Your daily goal is: {{ goal }} glasses</p>
+            <p>You have drunk: {{ glasses }} glasses of water</p>
+            <p>Remaining glasses: {{ remaining_amount }}</p>
+            <p>Status: {{ status }}</p>
+
+            {% if remaining_amount > 0 %}
+            <p><strong>Remaining:</strong> You need to drink {{ remaining_amount }} more glasses to reach your goal.</p>
+            {% else %}
+            <p><strong>Congratulations!</strong> You have reached your daily goal!</p>
+            {% endif %}
+
+            <h3>Water Intake Summary</h3>
+            <p>Percentage: {{ percentage|round(2) }}%</p>
+            <p>{{ message }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
